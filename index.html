@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kopi Rindu</title>
+    <title>Geprek Juragan</title>
 
 <!-- fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,36 +17,163 @@
 
 <!-- My Style -->
     <link rel="stylesheet" href="css/style.css">
+
+    <!-- AlpineJS -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- App -->
+     <script src="src/app.js"></script>
   </head>
 
   <body>
 
     <!-- Navbar start -->
-     <nav class="navbar">
-      <a href="#" class="navbar-logo">kopi<span>rindu</span>.</a>
+     <nav class="navbar" x-data>
+      <a href="#" class="navbar-logo">Geprek<span>Juragan</span>.</a>
 
       <div class="navbar-nav">
         <a href="#home">Home</a>
         <a href="#about">Tentang Kami</a>
-        <a href="#menu">Menu</a>
+        <a href="#products">Menu</a>
         <a href="#contact">Kontak</a>
       </div>
 
       <div class="navbar-extra">
-        <a href="#" id="search"><i data-feather="search"></i>
-        <a href="#" id="shopping-cart"><i data-feather="shopping-cart"></i>
+        <a href="#" id="search-button"><i data-feather="search"></i>
+        <a href="#" id="shopping-cart-button">
+          <i data-feather="shopping-cart"></i>
+          <span class="quantity-badge" x-show="$store.cart.quantity" x-text="$store.cart.quantity"></span>
         <a href="#" id="hamburger-menu"><i data-feather="menu"></i>
         </a>
       </div>
+
+<!-- Search Form start -->
+ <div class="search-form">
+  <input type="search" id="search-box" placeholder="search here...">
+  <label for="search-box"><i data-feather="search"></i></label>
+ </div>
+<!-- Search Form end -->
+
+
+<!-- Shopping Cart start -->
+ <div class="shopping-cart">
+  <template x-for="(item, index) in $store.cart.items" x-keys="index">
+  <div class="cart-item">
+    <img :src="`img/products/${item.img}`" :alt="item.name">
+    <div class="item-detail">
+      <h3 x-text="item.name"></h3>
+      <div class="item-price">
+        <span x-text="rupiah(item.price)"></span> &times;
+        <button id="remove" @click="$store.cart.remove(item.id)">&minus;</button>
+        <span x-text="item.quantity"></span>
+        <button id="add" @click="$store.cart.add(item)">&plus;</button> &equals;
+        <span x-text="rupiah(item.total)"></span>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="cart-item">
+
+    <img src="img/products/2.jpg" alt="Ayam Geprek Sambal Bawang">
+    <div class="item-detail">
+      <h3>Ayam Geprek Sambal Bawang</h3>
+      <div class="item-price">IDR 10K</div>
+    </div>
+    <i data-feather="trash-2" class="remove-item"></i>
+  </div>
+  <div class="cart-item">
+    <img src="img/products/3.jpg" alt="Ayam Geprek Mozarella">
+    <div class="item-detail">
+      <h3>Ayam Geprek Mozarella</h3>
+      <div class="item-price">IDR 15K</div>
+    </div>
+    <i data-feather="trash-2" class="remove-item"></i>
+  </div>
+  <div class="cart-item">
+    <img src="img/products/4.jpg" alt="Ayam Geprek Sambal Matah">
+    <div class="item-detail">
+      <h3>Ayam Geprek Sambal Matah</h3>
+      <div class="item-price">IDR 13K</div>
+    </div>
+    <i data-feather="trash-2" class="remove-item"></i>
+  </div>
+  <div class="cart-item">
+    <img src="img/products/5.jpg" alt="Ayam Geprek Sambal Ijo">
+    <div class="item-detail">
+      <h3>Ayam Geprek Sambal Ijo</h3>
+      <div class="item-price">IDR 12K</div>
+    </div>
+    <i data-feather="trash-2" class="remove-item"></i>
+  </div>
+  <div class="cart-item">
+    <img src="img/products/6.jpg" alt="Crispy Chicken Skin Rice">
+    <div class="item-detail">
+      <h3>Crispy Chicken Skin Rice</h3>
+      <div class="item-price">IDR 10K</div>
+    </div>
+    <i data-feather="trash-2" class="remove-item"></i>
+  </div>
+  <div class="cart-item">
+    <img src="img/products/7.jpg" alt="Crispy Chicken Skin">
+    <div class="item-detail">
+      <h3>Crispy Chicken Skin</h3>
+      <div class="item-price">IDR 7K</div>
+    </div>
+    <i data-feather="trash-2" class="remove-item"></i>
+  </div>
+  <div class="cart-item">
+    <img src="img/products/8.jpg" alt="Es Teh Juragan">
+    <div class="item-detail">
+      <h3>Es Teh Juragan</h3>
+      <div class="item-price">IDR 3K</div>
+    </div>
+    <i data-feather="trash-2" class="remove-item"></i>
+  </div>
+  <div class="cart-item">
+    <img src="img/products/9.jpg" alt="Es Teh Lemon Juragan">
+    <div class="item-detail">
+      <h3>Es Teh Lemon Juragan</h3>
+      <div class="item-price">IDR 5K</div>
+    </div>
+    <i data-feather="trash-2" class="remove-item"></i>
+  </div> -->
+</template>
+  <h4 x-show="!$store.cart.items.length" style="margin-top: 1rem;">Cart is Empty</h4>
+  <h4 x-show="$store.cart.items.length">Total : <span x-text="rupiah($store.cart.total)"></span></h4>
+
+  <div class="form-container" x-show="$store.cart.items.length">
+    <form action="" id="checkoutForm">
+      <h5>Customer Detail</h5>
+
+      <label for="name">
+        <span>Nama</span>
+        <input type="text" name="name" id="name">
+      </label>
+
+      <label for="phone">
+        <span>Phone</span>
+        <input type="number" name="phone" id="phone" autocomplete="off">
+      </label>
+
+      <label for="location">
+        <span>COD</span>
+        <input type="location" name="location" id="location">
+      </label>
+
+
+      <button class="checkout-button" type="submit" id="checkout-button" value="checkout">Checkout</button>
+    </form>
+  </div>
+ </div>
+<!-- Shopping Cart end -->
+
      </nav>
     <!-- Navbar end -->
 
     <!-- Hero Section start-->
      <section class="hero" id="home">
       <main class="content">
-        <h1>Mari Nikmati Secangkir <span>Kopi</span></h1>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur, quaerat.</p>
-        <a href="#" class="cta">Beli Sekarang</a>
+        <h1>Welcome To <span>GEPREK JURAGAN</span></h1>
+      <p>Nikmati berbagai pilihan menu yang siap menggoyang lidah, dari geprek crispy hingga sambal spesial racikan juragan. Rasakan sensasi makan yang tak terlupakan hanya di Geprek Juragan!</p>
       </main>
      </section>
     <!-- Hero Section end-->
@@ -57,64 +184,257 @@
 
       <div class="row">
         <div class="about-img">
-          <img src="img/tentang-kami-new.jpg" alt="Tentang Kami">
+          <img src="img/TENTANG KAMIII.png" alt="Tentang Kami">
         </div>
       
         <div class="content">
-        <h3>Kenapa memilih kopi kami?</h3>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dicta non illo quisquam! Expedita, minima veniam.</p>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore quod ratione eveniet facere quibusdam recusandae illo odio porro illum sed?</p>
+        <h3>Kenapa memilih GEPREK JURAGAN ???</h3>
+        <li>Geprek Juragan adalah pilihan tepat bagi Anda yang mencari cita rasa ayam geprek yang autentik dan lezat. Kami menggunakan bahan-bahan berkualitas dan bumbu pilihan untuk memberikan sensasi rasa pedas yang pas di lidah. Dengan menu yang beragam, kami siap memanjakan selera Anda. Pelayanan cepat, porsi melimpah, dan harga bersahabat membuat Geprek Juragan menjadi favorit para pecinta kuliner geprek.</li>
+        <li>Kami juga menjaga kebersihan dan kualitas di setiap hidangan yang kami sajikan, memastikan setiap suapan memberikan pengalaman makan yang memuaskan. Jadi, kenapa memilih yang lain jika Geprek Juragan sudah menyediakan semua yang Anda butuhkan? Rasakan sendiri kenikmatannya!</li>
+        
       </div>
       </div>
     </section>
 
     <!-- About Section end -->
 
-<!-- Menu Section Start -->
- <section id="menu" class="menu">
-  <h2><span>Menu</span> Kami</h2>
-  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates, dolores ipsam? Exercitationem quisquam !</p>
-
-
+<!-- Product Section start -->
+ <section class="products" id="products" x-data="products">
+  <h2><span>Menu</span> GEPREK JURAGAN</h2>
+  <li>Klik icon keranjang untuk menambahkan pesanan !</li>
+  <li>Klik icon mata untuk melihat detail produk !</li>
   <div class="row">
-    <div class="menu-card">
-      <img src="img/Menu/Espresso.jpg" alt="Espresso" class="Menu-card-img">
-      <h3 class="menu-card-title">- Espresso -</h3>
-      <p class="menu-card-price">IDR 15K</p>
+    <template x-for="(item, index) in items" x-key="index">
+    <div class="product-card">
+      <div class="product-icons">
+        <a href="#" @click.prevent="$store.cart.add(item)">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="9" cy="21" r="1"></circle>
+            <circle cx="20" cy="21" r="1"></circle>
+            <path d="M1 1h4l2.68 13.39a1 1 0 0 0 1 .86h9.72a1 1 0 0 0 1-.76l3.38-10.13H6"></path>
+          </svg>        
+        </a>
+
+        <a href="#" class="item-detail-button">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+            <circle cx="12" cy="12" r="3"></circle>
+        </svg>
+        
+        </a>
+      </div>
+      <div class="product-image">
+        <img :src="`img/products/${item.img}`" :alt="item.name">
+      </div>
+      <div class="product-content">
+        <h3 x-text="item.name"></h3>
+        <div class="product-stars">
+          <svg width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+</svg>
+          <svg width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+</svg>
+          <svg width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+</svg>
+          <svg width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+</svg>
+          <svg width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+</svg>
+
+        </div>
+        <div class="product-price"><span x-text="rupiah(item.price)"></span></div>
+      </div>
     </div>
-    <div class="menu-card">
-      <img src="img/Menu/Espresso.jpg" alt="Espresso" class="Menu-card-img">
-      <h3 class="menu-card-title">- Espresso -</h3>
-      <p class="menu-card-price">IDR 15K</p>
+    <!-- <div class="product-card">
+
+      <div class="product-icons">
+        <a href="#"><i data-feather="shopping-cart"></i></a>
+        <a href="#" class="item-detail-button"><i data-feather="eye"></i></a>
+      </div>
+      <div class="product-image">
+        <img src="img/products/2.jpg" alt="product 1">
+      </div>
+      <div class="product-content">
+        <h3>Ayam Geprek Sambal Bawang</h3>
+        <div class="product-stars">
+          <i data-feather="star" class="star-full"></i>
+          <i data-feather="star" class="star-full"></i>
+          <i data-feather="star" class="star-full"></i>
+          <i data-feather="star" class="star-full"></i>
+          <i data-feather="star" class="star-full"></i>
+        </div>
+        <div class="product-price">IDR 10K <span>IDR 12K</span></div>
+      </div>
     </div>
-    <div class="menu-card">
-      <img src="img/Menu/Espresso.jpg" alt="Espresso" class="Menu-card-img">
-      <h3 class="menu-card-title">- Espresso -</h3>
-      <p class="menu-card-price">IDR 15K</p>
+    <div class="product-card">
+      <div class="product-icons">
+        <a href="#"><i data-feather="shopping-cart"></i></a>
+        <a href="#" class="item-detail-button"><i data-feather="eye"></i></a>
+      </div>
+      <div class="product-image">
+        <img src="img/products/3.jpg" alt="product 1">
+      </div>
+      <div class="product-content">
+        <h3>Ayam Geprek Mozarella</h3>
+        <div class="product-stars">
+          <i data-feather="star" class="star-full"></i>
+          <i data-feather="star" class="star-full"></i>
+          <i data-feather="star" class="star-full"></i>
+          <i data-feather="star" class="star-full"></i>
+          <i data-feather="star" class="star"></i>
+        </div>
+        <div class="product-price">IDR 15K <span>IDR 17K</span></div>
+      </div>
     </div>
-    <div class="menu-card">
-      <img src="img/Menu/Espresso.jpg" alt="Espresso" class="Menu-card-img">
-      <h3 class="menu-card-title">- Espresso -</h3>
-      <p class="menu-card-price">IDR 15K</p>
+    <div class="product-card">
+      <div class="product-icons">
+        <a href="#"><i data-feather="shopping-cart"></i></a>
+        <a href="#" class="item-detail-button"><i data-feather="eye"></i></a>
+      </div>
+      <div class="product-image">
+        <img src="img/products/4.jpg" alt="product 1">
+      </div>
+      <div class="product-content">
+        <h3>Ayam Geprek Sambal Matah</h3>
+        <div class="product-stars">
+          <i data-feather="star" class="star-full"></i>
+          <i data-feather="star" class="star-full"></i>
+          <i data-feather="star" class="star-full"></i>
+          <i data-feather="star" class="star-full"></i>
+          <i data-feather="star" class="star"></i>
+        </div>
+        <div class="product-price">IDR 13K <span>IDR 15K</span></div>
+      </div>
     </div>
-    <div class="menu-card">
-      <img src="img/Menu/Espresso.jpg" alt="Espresso" class="Menu-card-img">
-      <h3 class="menu-card-title">- Espresso -</h3>
-      <p class="menu-card-price">IDR 15K</p>
+    <div class="product-card">
+      <div class="product-icons">
+        <a href="#"><i data-feather="shopping-cart"></i></a>
+        <a href="#" class="item-detail-button"><i data-feather="eye"></i></a>
+      </div>
+      <div class="product-image">
+        <img src="img/products/5.jpg" alt="product 1">
+      </div>
+      <div class="product-content">
+        <h3>Ayam Geprek Sambal Ijo</h3>
+        <div class="product-stars">
+          <i data-feather="star" class="star-full"></i>
+          <i data-feather="star" class="star-full"></i>
+          <i data-feather="star" class="star-full"></i>
+          <i data-feather="star" class="star-full"></i>
+          <i data-feather="star" class="star"></i>
+        </div>
+        <div class="product-price">IDR 12K <span>IDR 15K</span></div>
+      </div>
     </div>
-    <div class="menu-card">
-      <img src="img/Menu/Espresso.jpg" alt="Espresso" class="Menu-card-img">
-      <h3 class="menu-card-title">- Espresso -</h3>
-      <p class="menu-card-price">IDR 15K</p>
-    </div>
+    </div> -->
+  </template>
   </div>
  </section>
-<!-- Menu Section end -->
+<!-- Product Section end -->
+
+<!-- Product Menu Tambahan start -->
+<!-- <section class="products" id="products">
+  <h2><span>Menu</span> Tambahan</h2>
+  <li>Klik icon keranjang untuk menambahkan pesanan !</li>
+  <li>Klik icon mata untuk melihat detail produk !</li>
+  <div class="row">
+    <div class="product-card">
+      <div class="product-icons">
+        <a href="#"><i data-feather="shopping-cart"></i></a>
+        <a href="#" class="item-detail-button"><i data-feather="eye"></i></a>
+      </div>
+      <div class="product-image">
+        <img src="img/products/6.jpg" alt="product 1">
+      </div>
+      <div class="product-content">
+        <h3>Crispy chicken Skin Rice</h3>
+        <div class="product-stars">
+          <i data-feather="star" class="star-full"></i>
+          <i data-feather="star" class="star-full"></i>
+          <i data-feather="star" class="star-full"></i>
+          <i data-feather="star" class="star-full"></i>
+          <i data-feather="star" class="star-full"></i>
+        </div>
+        <div class="product-price">IDR 10K <span>IDR 12K</span></div>
+      </div>
+    <div class="product-card">
+      <div class="product-icons">
+        <a href="#"><i data-feather="shopping-cart"></i></a>
+        <a href="#" class="item-detail-button"><i data-feather="eye"></i></a>
+      </div>
+      <div class="product-image">
+        <img src="img/products/7.jpg" alt="product 1">
+      </div>
+      <div class="product-content">
+        <h3>Crispy Chicken Skin</h3>
+        <div class="product-stars">
+          <i data-feather="star" class="star-full"></i>
+          <i data-feather="star" class="star-full"></i>
+          <i data-feather="star" class="star-full"></i>
+          <i data-feather="star" class="star-full"></i>
+          <i data-feather="star" class="star-full"></i>
+        </div>
+        <div class="product-price">IDR 7K <span>IDR 10K</span></div>
+      </div>
+      
+      </section> -->
+<!-- Product Menu Tambahan end -->
  
+<!-- Product Minuman start -->
+ <!-- <section class="products" id="products">
+  <h2><span>Menu</span> Minuman</h2>
+  <li>Klik icon keranjang untuk menambahkan pesanan !</li>
+  <li>Klik icon mata untuk melihat detail produk !</li>
+  <div class="row">
+    <div class="product-card">
+      <div class="product-icons">
+        <a href="#"><i data-feather="shopping-cart"></i></a>
+        <a href="#" class="item-detail-button"><i data-feather="eye"></i></a>
+      </div>
+      <div class="product-image">
+        <img src="img/products/8.jpg" alt="product 1">
+      </div>
+      <div class="product-content">
+        <h3>Es Teh Juragan</h3>
+        <div class="product-stars">
+          <i data-feather="star" class="star-full"></i>
+          <i data-feather="star" class="star-full"></i>
+          <i data-feather="star" class="star-full"></i>
+          <i data-feather="star" class="star-full"></i>
+          <i data-feather="star" class="star-full"></i>
+        </div>
+        <div class="product-price">IDR 3K</div>
+      </div>
+    <div class="product-card">
+      <div class="product-icons">
+        <a href="#"><i data-feather="shopping-cart"></i></a>
+        <a href="#" class="item-detail-button"><i data-feather="eye"></i></a>
+      </div>
+      <div class="product-image">
+        <img src="img/products/9.jpg" alt="product 1">
+      </div>
+      <div class="product-content">
+        <h3>Es Teh Lemon Juragan</h3>
+        <div class="product-stars">
+          <i data-feather="star" class="star-full"></i>
+          <i data-feather="star" class="star-full"></i>
+          <i data-feather="star" class="star-full"></i>
+          <i data-feather="star" class="star-full"></i>
+          <i data-feather="star" class="star-full"></i>
+        </div>
+        <div class="product-price">IDR 5K</div>
+      </div>
+      </section> -->
+<!-- Product Minuman end -->
+
 <!-- Contact Section start -->
  <section id="contact" class="contact">
   <h2><span>Kontak</span> Kami</h2>
-<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem, nobis!</p>
+<p>Hubungi kami untuk pemesanan CATERING !</p>
 
 
 <div class="row">
@@ -123,15 +443,15 @@
   <form action="">
     <div class="input-group">
       <i data-feather="user"></i>
-      <input type="text" placeholder="nama">
+      <input type="text" placeholder="Nama">
     </div>
     <div class="input-group">
       <i data-feather="mail"></i>
-      <input type="text" placeholder="email">
+      <input type="text" placeholder="E-mail">
     </div>
     <div class="input-group">
       <i data-feather="phone"></i>
-      <input type="text" placeholder="no hp">
+      <input type="text" placeholder="Nomor HP">
     </div>
     <button type="submit" class="btn">Kirim Pesan</button>
   </form>
@@ -160,6 +480,30 @@
   </div>
 </footer>
 <!-- Footer end -->
+
+<!-- Modal Box Item Detail start -->
+ <div class="modal" id="item-detail-modal">
+  <div class="modal-container">
+    <a href="#" class="close-icon"><i data-feather="x"></i></a>
+    <div class="modal-content">
+      <img src="img/products/geprek bakar.jpg" alt="Ayam Geprek Bakar Hot">
+      <div class="product-content">
+        <h3>Ayam Geprek Bakar Hot</h3>
+      <p>Nikmati sensasi pedas menggigit dari Ayam Geprek Bakar Hot. Ayam geprek yang digoreng garing kemudian dipanggang untuk memberikan aroma bakar yang khas. Disajikan dengan sambal pedas yang dibuat dari cabai segar, cocok bagi Anda pencinta rasa ekstra pedas.</p>
+      <div class="product-stars">
+        <i data-feather="star" class="star-full"></i>
+        <i data-feather="star" class="star-full"></i>
+        <i data-feather="star" class="star-full"></i>
+        <i data-feather="star" class="star-full"></i>
+        <i data-feather="star" class="star-full"></i>
+      </div>
+      <div class="product-price">IDR 12K <span>IDR 15K</span></div>
+      <a href="#"><i data-feather="shopping-cart"></i> <span>add to cart</span></a>
+      </div>
+    </div>
+  </div>
+ </div>
+<!-- Modal Box Item Detail end -->
 
 <!-- Feather Icons -->
 <script>
