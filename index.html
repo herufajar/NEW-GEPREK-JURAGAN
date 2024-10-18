@@ -20,9 +20,17 @@
 
     <!-- AlpineJS -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <!-- Midtrans -->
+    <script type="text/javascript"
+    src="https://app.midtrans.com/snap/snap.js"
+    data-client-key="<?php echo getenv('MIDTRANS_CLIENT_KEY'); ?>"></script>
+
 
     <!-- App -->
-     <script src="src/app.js"></script>
+     <script src="src/app.js" async></script>
+
+
   </head>
 
   <body>
@@ -71,96 +79,35 @@
       </div>
     </div>
   </div>
-  <!-- <div class="cart-item">
-
-    <img src="img/products/2.jpg" alt="Ayam Geprek Sambal Bawang">
-    <div class="item-detail">
-      <h3>Ayam Geprek Sambal Bawang</h3>
-      <div class="item-price">IDR 10K</div>
-    </div>
-    <i data-feather="trash-2" class="remove-item"></i>
-  </div>
-  <div class="cart-item">
-    <img src="img/products/3.jpg" alt="Ayam Geprek Mozarella">
-    <div class="item-detail">
-      <h3>Ayam Geprek Mozarella</h3>
-      <div class="item-price">IDR 15K</div>
-    </div>
-    <i data-feather="trash-2" class="remove-item"></i>
-  </div>
-  <div class="cart-item">
-    <img src="img/products/4.jpg" alt="Ayam Geprek Sambal Matah">
-    <div class="item-detail">
-      <h3>Ayam Geprek Sambal Matah</h3>
-      <div class="item-price">IDR 13K</div>
-    </div>
-    <i data-feather="trash-2" class="remove-item"></i>
-  </div>
-  <div class="cart-item">
-    <img src="img/products/5.jpg" alt="Ayam Geprek Sambal Ijo">
-    <div class="item-detail">
-      <h3>Ayam Geprek Sambal Ijo</h3>
-      <div class="item-price">IDR 12K</div>
-    </div>
-    <i data-feather="trash-2" class="remove-item"></i>
-  </div>
-  <div class="cart-item">
-    <img src="img/products/6.jpg" alt="Crispy Chicken Skin Rice">
-    <div class="item-detail">
-      <h3>Crispy Chicken Skin Rice</h3>
-      <div class="item-price">IDR 10K</div>
-    </div>
-    <i data-feather="trash-2" class="remove-item"></i>
-  </div>
-  <div class="cart-item">
-    <img src="img/products/7.jpg" alt="Crispy Chicken Skin">
-    <div class="item-detail">
-      <h3>Crispy Chicken Skin</h3>
-      <div class="item-price">IDR 7K</div>
-    </div>
-    <i data-feather="trash-2" class="remove-item"></i>
-  </div>
-  <div class="cart-item">
-    <img src="img/products/8.jpg" alt="Es Teh Juragan">
-    <div class="item-detail">
-      <h3>Es Teh Juragan</h3>
-      <div class="item-price">IDR 3K</div>
-    </div>
-    <i data-feather="trash-2" class="remove-item"></i>
-  </div>
-  <div class="cart-item">
-    <img src="img/products/9.jpg" alt="Es Teh Lemon Juragan">
-    <div class="item-detail">
-      <h3>Es Teh Lemon Juragan</h3>
-      <div class="item-price">IDR 5K</div>
-    </div>
-    <i data-feather="trash-2" class="remove-item"></i>
-  </div> -->
+ 
 </template>
   <h4 x-show="!$store.cart.items.length" style="margin-top: 1rem;">Cart is Empty</h4>
   <h4 x-show="$store.cart.items.length">Total : <span x-text="rupiah($store.cart.total)"></span></h4>
 
   <div class="form-container" x-show="$store.cart.items.length">
     <form action="" id="checkoutForm">
+      <input type="hidden" name="items" x-model="JSON.stringify($store.cart.items)">
+      <input type="hidden" name="total" x-model="$store.cart.total">
       <h5>Customer Detail</h5>
 
       <label for="name">
         <span>Nama</span>
         <input type="text" name="name" id="name">
       </label>
-
+      
+      <label for="email">
+        <span>E-mail</span>
+        <input type="email" name="email" id="email">
+      </label>
+      
       <label for="phone">
         <span>Phone</span>
         <input type="number" name="phone" id="phone" autocomplete="off">
       </label>
-
-      <label for="location">
-        <span>COD</span>
-        <input type="location" name="location" id="location">
-      </label>
+      
 
 
-      <button class="checkout-button" type="submit" id="checkout-button" value="checkout">Checkout</button>
+      <button class="checkout-button disabled" type="submit" id="checkout-button" value="checkout">Checkout</button>
     </form>
   </div>
  </div>

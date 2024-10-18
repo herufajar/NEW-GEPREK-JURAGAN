@@ -1,12 +1,14 @@
-# Mengabaikan file konfigurasi sensitif
+# Ignore .env file
 .env
 
-# Mengabaikan folder vendor (jika ada, biasanya dibuat oleh Composer)
+# Ignore Composer's vendor directory
 /vendor/
 
-# Mengabaikan file log
-*.log
+# Ignore PHPStorm project files
+/.idea/
 
-# Mengabaikan file sistem
-.DS_Store
-Thumbs.db
+# Ignore any node_modules if you are using Node.js
+/node_modules/
+
+# Ignore log files
+*.log
