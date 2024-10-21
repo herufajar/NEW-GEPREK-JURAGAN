@@ -88,7 +88,6 @@ body {
 #hamburger-menu {
     display: none;
 }
-
 /* Navbar Search Form */
 .navbar .search-form {
     position: absolute;
@@ -102,6 +101,7 @@ body {
     transform: scaleY(0);
     transform-origin: top;
     transition: 0.5s;
+    z-index: 100; /* Pastikan di atas elemen lain */
 }
 
 .navbar .search-form.active {
@@ -114,6 +114,8 @@ body {
     font-size: 1.6rem;
     color: var(--bg);
     padding: 1rem;
+    border: 1px solid #ccc; /* Tambahkan border */
+    border-radius: 5px; /* Sudut membulat */
 }
 
 .navbar .search-form label {
@@ -123,19 +125,6 @@ body {
     color: var(--primary);
 }
 
-/* Search result */
-.search-results {
-    margin-top: 20px; /* Jarak antara form pencarian dan hasil */
-    padding: 10px; /* Ruang dalam */
-    border: 1px solid #ccc; /* Garis batas */
-    border-radius: 5px; /* Sudut membulat */
-    background-color: #f9f9f9; /* Warna latar belakang */
-}
-
-.search-results div {
-    margin-bottom: 10px; /* Jarak antara item hasil */
-    font-size: 16px; /* Ukuran font */
-}
 
 
 

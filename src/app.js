@@ -13,7 +13,7 @@ document.addEventListener('alpine:init', () => {
         ],
     }));
 
-    // Keranjang belanja dengan total dan kuantitas
+    // Store untuk keranjang belanja
     Alpine.store('cart', {
         items: [],
         total: 0,
@@ -54,6 +54,7 @@ document.addEventListener('alpine:init', () => {
         },
     });
 });
+
 
 // Validasi Form
 const checkoutButton = document.querySelector('.checkout-button');
@@ -130,3 +131,4 @@ checkoutButton.addEventListener('click', async function (e) {
         console.error('Error during fetch:', err.message);
     }
 });
+ 

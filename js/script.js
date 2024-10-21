@@ -9,42 +9,47 @@ const rupiah = (number) => {
 
 // Toggle class active untuk hamburger-menu
 const navbarNav = document.querySelector('.navbar-nav');
+const hamburgerMenu = document.querySelector('#hamburger-menu');
+
 // ketika hamburger menu di klik
-document.querySelector('#hamburger-menu').onclick = () => {
+hamburgerMenu.onclick = () => {
   navbarNav.classList.toggle('active');
 };
 
 // Toggle class active untuk search-form
 const searchForm = document.querySelector('.search-form');
 const searchBox = document.querySelector('#search-box');
+const searchButton = document.querySelector('#search-button');
 
-document.querySelector('#search-button').onclick = (e) => {
+searchButton.onclick = (e) => {
   searchForm.classList.toggle('active');
-  searchBox.focus();
-  e.preventDefault();
+  searchBox.focus();  // Fokus ke input saat form dibuka
+  e.preventDefault(); // Mencegah reload halaman
 };
 
 // Toggle class active untuk shopping cart
 const shoppingCart = document.querySelector('.shopping-cart');
-document.querySelector('#shopping-cart-button').onclick = (e) => {
+const shoppingCartButton = document.querySelector('#shopping-cart-button');
+
+shoppingCartButton.onclick = (e) => {
   shoppingCart.classList.toggle('active');
-  e.preventDefault();
+  e.preventDefault(); // Mencegah reload halaman
 };
 
-// Klik di luar elemen
-const hamburger = document.querySelector('#hamburger-menu');
-const searchButton = document.querySelector('#search-button');
-const sc = document.querySelector('#shopping-cart-button');
-
+// Klik di luar elemen untuk menutup navbar, search form, dan shopping cart
 document.addEventListener('click', function(e) {
-  if (!hamburger.contains(e.target) && !navbarNav.contains(e.target)) {
+  // Tutup navbar jika klik di luar
+  if (!hamburgerMenu.contains(e.target) && !navbarNav.contains(e.target)) {
       navbarNav.classList.remove('active');
   }
 
+  // Tutup search form jika klik di luar
   if (!searchButton.contains(e.target) && !searchForm.contains(e.target)) {
       searchForm.classList.remove('active');
   }
-  if (!sc.contains(e.target) && !shoppingCart.contains(e.target)) {
+
+  // Tutup shopping cart jika klik di luar
+  if (!shoppingCartButton.contains(e.target) && !shoppingCart.contains(e.target)) {
       shoppingCart.classList.remove('active');
   }
 });
@@ -53,65 +58,23 @@ document.addEventListener('click', function(e) {
 const itemDetailModal = document.querySelector('#item-detail-modal');
 const itemDetailButtons = document.querySelectorAll('.item-detail-button');
 
+// Buka modal saat tombol detail item di klik
 itemDetailButtons.forEach((btn) => {
   btn.onclick = (e) => {
       itemDetailModal.style.display = 'flex';
-      e.preventDefault();
+      e.preventDefault(); // Mencegah reload halaman
   };
 });
 
-// Klik tombol close
+// Klik tombol close pada modal
 document.querySelector('.modal .close-icon').onclick = (e) => {
   itemDetailModal.style.display = 'none';
-  e.preventDefault();
+  e.preventDefault(); // Mencegah reload halaman
 };
 
-// Klik di luar modal
+// Klik di luar modal untuk menutup modal
 window.onclick = (e) => {
   if (e.target === itemDetailModal) {
       itemDetailModal.style.display = 'none';
   }
 };
-
-// Fungsi untuk menangani pencarian
-const resultsContainer = document.getElementById('search-results');
-const products = [
-  { name: 'Ayam Geprek Sambal Bawang' },
-  { name: 'Ayam Geprek Sambal Ijo' },
-  { name: 'Ayam Geprek Sambal Matah' },
-  { name: 'Ayam Geprek Mozarella' },
-  { name: 'Ayam Geprek Bakar Hot' },
-  { name: 'Crispy Chicken Skin Rice' },
-  { name: 'Crispy Chicken Skin' },
-  { name: 'Ca Kangkung' },
-  { name: 'Es Teh Juragan' },
-  { name: 'Es Teh Lemon Juragan' },
-  { name: 'Promo' },
-  
-];
-
-const handleSearch = () => {
-  const query = searchBox.value.toLowerCase();
-  const results = products.filter(product => product.name.toLowerCase().includes(query));
-
-  // Bersihkan hasil pencarian sebelumnya
-  resultsContainer.innerHTML = '';
-
-  // Tampilkan hasil pencarian
-  if (results.length > 0) {
-      results.forEach(product => {
-          const resultItem = document.createElement('div');
-          resultItem.textContent = product.name; // Menampilkan nama produk
-          resultsContainer.appendChild(resultItem);
-      });
-  } else {
-      resultsContainer.textContent = 'Tidak ada hasil ditemukan.';
-  }
-};
-
-// Tambahkan event listener pada search box
-searchBox.addEventListener('keyup', (e) => {
-  if (e.key === 'Enter') { // Jika menekan tombol Enter
-      handleSearch();
-  }
-});
