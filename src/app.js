@@ -13,6 +13,7 @@ document.addEventListener('alpine:init', () => {
         ],
     }));
 
+    // Keranjang belanja dengan total dan kuantitas
     Alpine.store('cart', {
         items: [],
         total: 0,
@@ -54,7 +55,7 @@ document.addEventListener('alpine:init', () => {
     });
 });
 
-// Form Validation
+// Validasi Form
 const checkoutButton = document.querySelector('.checkout-button');
 checkoutButton.disabled = true;
 
@@ -76,74 +77,56 @@ form.addEventListener('keyup', function () {
 });
 
 // Kirim data ketika tombol checkout diklik
-checkoutButton.addEventListener('click', async function(e) {
+checkoutButton.addEventListener('click', async function (e) {
     e.preventDefault();
     const formData = new FormData(form);
     const data = new URLSearchParams(formData);
     const objData = Object.fromEntries(data);
 
-    // Tambahkan properti yang diperlukan
-    objData.total = Alpine.store('cart').total; // Ambil total dari cart
-    objData.items = JSON.stringify(Alpine.store('cart').items); // Konversi items ke JSON string
+    // Mengambil item dari keranjang
+    const cartItems = Alpine.store('cart').items;
 
-    // Kirim data yang sudah lengkap
-try {
-    const response = await fetch('http://localhost:8080/GEPREK-JURAGAN-WEBSITE/php/placeOrder.php', {
-        method: 'POST',
-        body: JSON.stringify(objData),
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    });
+    // Hitung total dan kirim ke backend sebagai 'gross_amount'
+    objData.gross_amount = Alpine.store('cart').total; // Jumlah total untuk transaksi
+    objData.items = JSON.stringify(cartItems); // Kirim item dari keranjang dalam bentuk JSON
 
-    // Cek apakah respons dari server ok
-    if (!response.ok) {
-        const errorText = await response.text();
-        console.error('Error from server:', errorText);
-        throw new Error('Network response was not ok');
+    // Kirim data yang sudah lengkap ke server
+    try {
+        const response = await fetch('http://localhost:8080/GEPREK-JURAGAN-WEBSITE/php/placeOrder.php', {
+            method: 'POST',
+            body: JSON.stringify(objData),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        // Cek apakah respons dari server ok
+        if (!response.ok) {
+            const errorText = await response.text();
+            console.error('Error from server:', errorText);
+            throw new Error('Network response was not ok');
+        }
+
+        const responseText = await response.text();
+        console.log('Response from server:', responseText);
+
+        const tokenResponse = JSON.parse(responseText);
+        if (tokenResponse.error) {
+            console.error('Error from placeOrder:', tokenResponse.error);
+            alert(tokenResponse.error);
+            return;
+        }
+
+        const token = tokenResponse.token;
+        console.log('Token:', token);
+
+        // Cek apakah window.snap sudah terdefinisi untuk Midtrans
+        if (window.snap) {
+            window.snap.pay(token);
+        } else {
+            console.error('Midtrans Snap not loaded. Please check your script inclusion.');
+        }
+    } catch (err) {
+        console.error('Error during fetch:', err.message);
     }
-
-    const tokenResponse = await response.json(); // Menggunakan json untuk parsing
-    if (tokenResponse.error) {
-        console.error('Error from placeOrder:', tokenResponse.error);
-        return; // Menghentikan eksekusi jika ada error
-    }
-
-    const token = tokenResponse.token; // Ambil token dari respons
-    console.log('Token:', token); // Periksa token di console
-
-    // Cek apakah window.snap sudah terdefinisi
-    if (window.snap) {
-        window.snap.pay(token); // Memanggil fungsi pay dari Snap
-    } else {
-        console.error('Midtrans Snap not loaded. Please check your script inclusion.');
-    }
-} catch (err) {
-    console.error('Error:', err.message); // Menampilkan error ke console
-}
-
 });
-
-
-// Format pesan WhatsApp
-const formatMessage = (obj) => {
-    return `Data Customer
-        Nama: ${obj.name}
-        Email: ${obj.email}
-        Phone: ${obj.phone}
-Data Pesanan:
-        ${JSON.parse(obj.items)
-            .map((item) => `${item.name} (${item.quantity} x ${rupiah(item.total)})`)
-            .join('\n')}
-TOTAL: ${rupiah(obj.total)}
-Terima kasih.`;
-};
-
-// Konversi ke Rupiah
-const rupiah = (number) => {
-    return new Intl.NumberFormat('id-ID', {
-        style: 'currency',
-        currency: 'IDR',
-        minimumFractionDigits: 0,
-    }).format(number);
-};

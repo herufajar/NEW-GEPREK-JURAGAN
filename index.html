@@ -21,10 +21,10 @@
     <!-- AlpineJS -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     
-    <!-- Midtrans -->
-    <script type="text/javascript"
-    src="https://app.midtrans.com/snap/snap.js"
-    data-client-key="<?php echo getenv('MIDTRANS_CLIENT_KEY'); ?>"></script>
+   <!-- Midtrans Sandbox -->
+<script type="text/javascript"
+src="https://app.sandbox.midtrans.com/snap/snap.js"
+data-client-key="<?php echo getenv('MIDTRANS_CLIENT_KEY'); ?>"></script>
 
 
     <!-- App -->
@@ -196,187 +196,11 @@
         <div class="product-price"><span x-text="rupiah(item.price)"></span></div>
       </div>
     </div>
-    <!-- <div class="product-card">
-
-      <div class="product-icons">
-        <a href="#"><i data-feather="shopping-cart"></i></a>
-        <a href="#" class="item-detail-button"><i data-feather="eye"></i></a>
-      </div>
-      <div class="product-image">
-        <img src="img/products/2.jpg" alt="product 1">
-      </div>
-      <div class="product-content">
-        <h3>Ayam Geprek Sambal Bawang</h3>
-        <div class="product-stars">
-          <i data-feather="star" class="star-full"></i>
-          <i data-feather="star" class="star-full"></i>
-          <i data-feather="star" class="star-full"></i>
-          <i data-feather="star" class="star-full"></i>
-          <i data-feather="star" class="star-full"></i>
-        </div>
-        <div class="product-price">IDR 10K <span>IDR 12K</span></div>
-      </div>
-    </div>
-    <div class="product-card">
-      <div class="product-icons">
-        <a href="#"><i data-feather="shopping-cart"></i></a>
-        <a href="#" class="item-detail-button"><i data-feather="eye"></i></a>
-      </div>
-      <div class="product-image">
-        <img src="img/products/3.jpg" alt="product 1">
-      </div>
-      <div class="product-content">
-        <h3>Ayam Geprek Mozarella</h3>
-        <div class="product-stars">
-          <i data-feather="star" class="star-full"></i>
-          <i data-feather="star" class="star-full"></i>
-          <i data-feather="star" class="star-full"></i>
-          <i data-feather="star" class="star-full"></i>
-          <i data-feather="star" class="star"></i>
-        </div>
-        <div class="product-price">IDR 15K <span>IDR 17K</span></div>
-      </div>
-    </div>
-    <div class="product-card">
-      <div class="product-icons">
-        <a href="#"><i data-feather="shopping-cart"></i></a>
-        <a href="#" class="item-detail-button"><i data-feather="eye"></i></a>
-      </div>
-      <div class="product-image">
-        <img src="img/products/4.jpg" alt="product 1">
-      </div>
-      <div class="product-content">
-        <h3>Ayam Geprek Sambal Matah</h3>
-        <div class="product-stars">
-          <i data-feather="star" class="star-full"></i>
-          <i data-feather="star" class="star-full"></i>
-          <i data-feather="star" class="star-full"></i>
-          <i data-feather="star" class="star-full"></i>
-          <i data-feather="star" class="star"></i>
-        </div>
-        <div class="product-price">IDR 13K <span>IDR 15K</span></div>
-      </div>
-    </div>
-    <div class="product-card">
-      <div class="product-icons">
-        <a href="#"><i data-feather="shopping-cart"></i></a>
-        <a href="#" class="item-detail-button"><i data-feather="eye"></i></a>
-      </div>
-      <div class="product-image">
-        <img src="img/products/5.jpg" alt="product 1">
-      </div>
-      <div class="product-content">
-        <h3>Ayam Geprek Sambal Ijo</h3>
-        <div class="product-stars">
-          <i data-feather="star" class="star-full"></i>
-          <i data-feather="star" class="star-full"></i>
-          <i data-feather="star" class="star-full"></i>
-          <i data-feather="star" class="star-full"></i>
-          <i data-feather="star" class="star"></i>
-        </div>
-        <div class="product-price">IDR 12K <span>IDR 15K</span></div>
-      </div>
-    </div>
-    </div> -->
+    
   </template>
   </div>
  </section>
-<!-- Product Section end -->
 
-<!-- Product Menu Tambahan start -->
-<!-- <section class="products" id="products">
-  <h2><span>Menu</span> Tambahan</h2>
-  <li>Klik icon keranjang untuk menambahkan pesanan !</li>
-  <li>Klik icon mata untuk melihat detail produk !</li>
-  <div class="row">
-    <div class="product-card">
-      <div class="product-icons">
-        <a href="#"><i data-feather="shopping-cart"></i></a>
-        <a href="#" class="item-detail-button"><i data-feather="eye"></i></a>
-      </div>
-      <div class="product-image">
-        <img src="img/products/6.jpg" alt="product 1">
-      </div>
-      <div class="product-content">
-        <h3>Crispy chicken Skin Rice</h3>
-        <div class="product-stars">
-          <i data-feather="star" class="star-full"></i>
-          <i data-feather="star" class="star-full"></i>
-          <i data-feather="star" class="star-full"></i>
-          <i data-feather="star" class="star-full"></i>
-          <i data-feather="star" class="star-full"></i>
-        </div>
-        <div class="product-price">IDR 10K <span>IDR 12K</span></div>
-      </div>
-    <div class="product-card">
-      <div class="product-icons">
-        <a href="#"><i data-feather="shopping-cart"></i></a>
-        <a href="#" class="item-detail-button"><i data-feather="eye"></i></a>
-      </div>
-      <div class="product-image">
-        <img src="img/products/7.jpg" alt="product 1">
-      </div>
-      <div class="product-content">
-        <h3>Crispy Chicken Skin</h3>
-        <div class="product-stars">
-          <i data-feather="star" class="star-full"></i>
-          <i data-feather="star" class="star-full"></i>
-          <i data-feather="star" class="star-full"></i>
-          <i data-feather="star" class="star-full"></i>
-          <i data-feather="star" class="star-full"></i>
-        </div>
-        <div class="product-price">IDR 7K <span>IDR 10K</span></div>
-      </div>
-      
-      </section> -->
-<!-- Product Menu Tambahan end -->
- 
-<!-- Product Minuman start -->
- <!-- <section class="products" id="products">
-  <h2><span>Menu</span> Minuman</h2>
-  <li>Klik icon keranjang untuk menambahkan pesanan !</li>
-  <li>Klik icon mata untuk melihat detail produk !</li>
-  <div class="row">
-    <div class="product-card">
-      <div class="product-icons">
-        <a href="#"><i data-feather="shopping-cart"></i></a>
-        <a href="#" class="item-detail-button"><i data-feather="eye"></i></a>
-      </div>
-      <div class="product-image">
-        <img src="img/products/8.jpg" alt="product 1">
-      </div>
-      <div class="product-content">
-        <h3>Es Teh Juragan</h3>
-        <div class="product-stars">
-          <i data-feather="star" class="star-full"></i>
-          <i data-feather="star" class="star-full"></i>
-          <i data-feather="star" class="star-full"></i>
-          <i data-feather="star" class="star-full"></i>
-          <i data-feather="star" class="star-full"></i>
-        </div>
-        <div class="product-price">IDR 3K</div>
-      </div>
-    <div class="product-card">
-      <div class="product-icons">
-        <a href="#"><i data-feather="shopping-cart"></i></a>
-        <a href="#" class="item-detail-button"><i data-feather="eye"></i></a>
-      </div>
-      <div class="product-image">
-        <img src="img/products/9.jpg" alt="product 1">
-      </div>
-      <div class="product-content">
-        <h3>Es Teh Lemon Juragan</h3>
-        <div class="product-stars">
-          <i data-feather="star" class="star-full"></i>
-          <i data-feather="star" class="star-full"></i>
-          <i data-feather="star" class="star-full"></i>
-          <i data-feather="star" class="star-full"></i>
-          <i data-feather="star" class="star-full"></i>
-        </div>
-        <div class="product-price">IDR 5K</div>
-      </div>
-      </section> -->
-<!-- Product Minuman end -->
 
 <!-- Contact Section start -->
  <section id="contact" class="contact">
