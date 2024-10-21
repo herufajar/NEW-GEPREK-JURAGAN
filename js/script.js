@@ -1,80 +1,68 @@
-// Fungsi untuk format angka menjadi format rupiah
-const rupiah = (number) => {
-  return new Intl.NumberFormat('id-ID', {
-      style: 'currency',
-      currency: 'IDR',
-      minimumFractionDigits: 0,
-  }).format(number);
-};
-
 // Toggle class active untuk hamburger-menu
 const navbarNav = document.querySelector('.navbar-nav');
-const hamburgerMenu = document.querySelector('#hamburger-menu');
-
 // ketika hamburger menu di klik
-hamburgerMenu.onclick = () => {
+document.querySelector('#hamburger-menu').onclick = () => {
   navbarNav.classList.toggle('active');
 };
 
-// Toggle class active untuk search-form
+// Toggle class active untuk searh-form
 const searchForm = document.querySelector('.search-form');
 const searchBox = document.querySelector('#search-box');
-const searchButton = document.querySelector('#search-button');
 
-searchButton.onclick = (e) => {
+document.querySelector('#search-button').onclick = (e) => {
   searchForm.classList.toggle('active');
-  searchBox.focus();  // Fokus ke input saat form dibuka
-  e.preventDefault(); // Mencegah reload halaman
-};
+  searchBox.focus();
+  e.preventDefault();
+}
 
-// Toggle class active untuk shopping cart
+// toggle class active untuk shopping cart
 const shoppingCart = document.querySelector('.shopping-cart');
-const shoppingCartButton = document.querySelector('#shopping-cart-button');
-
-shoppingCartButton.onclick = (e) => {
+document.querySelector('#shopping-cart-button').onclick = (e) => {
   shoppingCart.classList.toggle('active');
-  e.preventDefault(); // Mencegah reload halaman
+  e.preventDefault();
 };
 
-// Klik di luar elemen untuk menutup navbar, search form, dan shopping cart
+// Klik diluar elemen
+const hamburger = document.querySelector('#hamburger-menu');
+const searchButton = document.querySelector('#search-button');
+const sc = document.querySelector('#shopping-cart-button');
+
 document.addEventListener('click', function(e) {
-  // Tutup navbar jika klik di luar
-  if (!hamburgerMenu.contains(e.target) && !navbarNav.contains(e.target)) {
-      navbarNav.classList.remove('active');
-  }
+    if(!hamburger.contains(e.target) && !navbarNav.contains(e.target)) {
+     navbarNav.classList.remove('active');
+    }
 
-  // Tutup search form jika klik di luar
-  if (!searchButton.contains(e.target) && !searchForm.contains(e.target)) {
-      searchForm.classList.remove('active');
-  }
-
-  // Tutup shopping cart jika klik di luar
-  if (!shoppingCartButton.contains(e.target) && !shoppingCart.contains(e.target)) {
-      shoppingCart.classList.remove('active');
-  }
+    if(!searchButton.contains(e.target) && !searchForm.contains(e.target)) {
+     searchForm.classList.remove('active');
+    }
+    if(!sc.contains(e.target) && !shoppingCart.contains(e.target)) {
+     shoppingCart.classList.remove('active');
+    }
 });
+
 
 // Modal Box
 const itemDetailModal = document.querySelector('#item-detail-modal');
 const itemDetailButtons = document.querySelectorAll('.item-detail-button');
 
-// Buka modal saat tombol detail item di klik
 itemDetailButtons.forEach((btn) => {
   btn.onclick = (e) => {
-      itemDetailModal.style.display = 'flex';
-      e.preventDefault(); // Mencegah reload halaman
-  };
-});
+  itemDetailModal.style.display = 'flex';
+  e.preventDefault();
 
-// Klik tombol close pada modal
-document.querySelector('.modal .close-icon').onclick = (e) => {
-  itemDetailModal.style.display = 'none';
-  e.preventDefault(); // Mencegah reload halaman
 };
 
-// Klik di luar modal untuk menutup modal
+});
+
+// KLik tombol close
+document.querySelector('.modal .close-icon').onclick = (e) => {
+  itemDetailModal.style.display = 'none';
+  e.preventDefault();
+};
+
+// Klik di luar modal
 window.onclick = (e) => {
   if (e.target === itemDetailModal) {
-      itemDetailModal.style.display = 'none';
+    itemDetailModal.style.display = 'none'
   }
 };

@@ -88,6 +88,7 @@ body {
 #hamburger-menu {
     display: none;
 }
+
 /* Navbar Search Form */
 .navbar .search-form {
     position: absolute;
@@ -101,7 +102,6 @@ body {
     transform: scaleY(0);
     transform-origin: top;
     transition: 0.5s;
-    z-index: 100; /* Pastikan di atas elemen lain */
 }
 
 .navbar .search-form.active {
@@ -114,8 +114,6 @@ body {
     font-size: 1.6rem;
     color: var(--bg);
     padding: 1rem;
-    border: 1px solid #ccc; /* Tambahkan border */
-    border-radius: 5px; /* Sudut membulat */
 }
 
 .navbar .search-form label {
@@ -124,9 +122,6 @@ body {
     margin-right: 1.5rem;
     color: var(--primary);
 }
-
-
-
 
 /* Shopping Cart */
 #shopping-cart-button {
@@ -732,37 +727,8 @@ font-weight: 700;
     
 /* Mobile Phone */
 @media (max-width: 450px) {
-    html {
+    html{
         font-size: 80%;
-    }
-
-    .navbar {
-        padding: 1rem 5%; /* Atur padding navbar */
-    }
-
-    .hero .content h1 {
-        font-size: 2.5em; /* Sesuaikan ukuran font */
-    }
-
-    .hero .content p {
-        font-size: 1.2rem; /* Sesuaikan ukuran font */
-    }
-
-    .about .row {
-        flex-direction: column; /* Ubah menjadi kolom di perangkat kecil */
-    }
-
-    .about .row .about-img {
-        width: 100%; /* Sesuaikan lebar */
-    }
-
-    .about .row .content {
-        padding: 0;
-        text-align: center; /* Rata tengah konten */
-    }
-
-    .products .product-image img {
-        height: auto; /* Sesuaikan tinggi gambar */
     }
 }
 

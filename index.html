@@ -21,11 +21,10 @@
     <!-- AlpineJS -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     
-   <!-- Midtrans Sandbox -->
-<script type="text/javascript"
-src="https://app.sandbox.midtrans.com/snap/snap.js"
-data-client-key="<?php echo getenv('MIDTRANS_CLIENT_KEY'); ?>"></script>
-
+    <!-- Midtrans -->
+    <script type="text/javascript"
+    src="https://app.sandbox.midtrans.com/snap/snap.js"
+    data-client-key="<?php echo getenv('MIDTRANS_CLIENT_KEY'); ?>"></script>
 
     <!-- App -->
      <script src="src/app.js" async></script>
@@ -54,13 +53,12 @@ data-client-key="<?php echo getenv('MIDTRANS_CLIENT_KEY'); ?>"></script>
         <a href="#" id="hamburger-menu"><i data-feather="menu"></i>
         </a>
       </div>
-      
- <!-- Search Form start -->
+
+<!-- Search Form start -->
  <div class="search-form">
-  <input type="search" id="search-box" placeholder="Search here...">
+  <input type="search" id="search-box" placeholder="search here...">
   <label for="search-box"><i data-feather="search"></i></label>
-  <div class="search-results"></div> <!-- Tempat hasil pencarian akan ditampilkan -->
-</div>
+ </div>
 <!-- Search Form end -->
 
 
