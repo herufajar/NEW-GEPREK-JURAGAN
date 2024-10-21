@@ -56,12 +56,15 @@ data-client-key="<?php echo getenv('MIDTRANS_CLIENT_KEY'); ?>"></script>
       </div>
 
 <!-- Search Form start -->
- <div class="search-form">
+<div class="search-form">
   <input type="search" id="search-box" placeholder="search here...">
   <label for="search-box"><i data-feather="search"></i></label>
- </div>
+  <button id="search-button">Search</button> <!-- Tombol pencarian -->
+</div>
 <!-- Search Form end -->
 
+<!-- Hasil pencarian akan ditampilkan di sini -->
+<div id="search-results" class="search-results"></div>
 
 <!-- Shopping Cart start -->
  <div class="shopping-cart">

@@ -72,3 +72,46 @@ window.onclick = (e) => {
       itemDetailModal.style.display = 'none';
   }
 };
+
+// Fungsi untuk menangani pencarian
+const resultsContainer = document.getElementById('search-results');
+const products = [
+  { name: 'Ayam Geprek Sambal Bawang' },
+  { name: 'Ayam Geprek Sambal Ijo' },
+  { name: 'Ayam Geprek Sambal Matah' },
+  { name: 'Ayam Geprek Mozarella' },
+  { name: 'Ayam Geprek Bakar Hot' },
+  { name: 'Crispy Chicken Skin Rice' },
+  { name: 'Crispy Chicken Skin' },
+  { name: 'Ca Kangkung' },
+  { name: 'Es Teh Juragan' },
+  { name: 'Es Teh Lemon Juragan' },
+  { name: 'Promo' },
+  
+];
+
+const handleSearch = () => {
+  const query = searchBox.value.toLowerCase();
+  const results = products.filter(product => product.name.toLowerCase().includes(query));
+
+  // Bersihkan hasil pencarian sebelumnya
+  resultsContainer.innerHTML = '';
+
+  // Tampilkan hasil pencarian
+  if (results.length > 0) {
+      results.forEach(product => {
+          const resultItem = document.createElement('div');
+          resultItem.textContent = product.name; // Menampilkan nama produk
+          resultsContainer.appendChild(resultItem);
+      });
+  } else {
+      resultsContainer.textContent = 'Tidak ada hasil ditemukan.';
+  }
+};
+
+// Tambahkan event listener pada search box
+searchBox.addEventListener('keyup', (e) => {
+  if (e.key === 'Enter') { // Jika menekan tombol Enter
+      handleSearch();
+  }
+});

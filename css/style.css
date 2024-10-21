@@ -123,6 +123,22 @@ body {
     color: var(--primary);
 }
 
+/* Search result */
+.search-results {
+    margin-top: 20px; /* Jarak antara form pencarian dan hasil */
+    padding: 10px; /* Ruang dalam */
+    border: 1px solid #ccc; /* Garis batas */
+    border-radius: 5px; /* Sudut membulat */
+    background-color: #f9f9f9; /* Warna latar belakang */
+}
+
+.search-results div {
+    margin-bottom: 10px; /* Jarak antara item hasil */
+    font-size: 16px; /* Ukuran font */
+}
+
+
+
 /* Shopping Cart */
 #shopping-cart-button {
     position: relative;
@@ -728,7 +744,7 @@ font-weight: 700;
 /* Mobile Phone */
 @media (max-width: 450px) {
     html {
-        font-size: 55%;
+        font-size: 80%;
     }
 
     .navbar {
